@@ -10,7 +10,11 @@ import (
 // SignIn ensures that the user credentials are correct and that
 // an authorization token is generated and sent back to the caller
 func SignIn(email, password string) (string, error) {
-	dao := domain.NewUserDao()
+	dao, err := domain.NewUserDao()
+	if err != nil {
+		return "", err
+	}
+
 	user, err := dao.FindByEmail(email)
 	if err != nil {
 		return "", errors.New("Invalid username or password")

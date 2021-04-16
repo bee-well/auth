@@ -11,8 +11,30 @@ type UserDao interface {
 	FindByEmail(string) (User, error)
 }
 
-func NewUserDao() UserDao {
-	return &userDao{}
+func NewUserDao() (UserDao, error) {
+	db, err := newSqlConnector().Connect()
+	if err != nil {
+		return nil, err
+	}
+	defer db.Close()
+
+	_, err = db.Exec(
+		`
+			CREATE TABLE IF NOT EXISTS users
+			(
+				id SERIAL NOT NULL, 
+				email varchar(128) NOT NULL UNIQUE,
+				first_name varchar(64) NOT NULL,
+				last_name varchar(64) NOT NULL,
+				password varchar(255) NOT NULL
+			)
+		`,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return &userDao{}, nil
 }
 
 type userDao struct{}

@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/bee-well/auth/config"
 	"github.com/bee-well/auth/mq"
 	"github.com/gin-gonic/gin"
 )
@@ -11,6 +12,10 @@ func Start() {
 
 	m := mq.NewMq()
 	mapMqHandlers(m)
+
+	if err := config.ReadInConfig(); err != nil {
+		panic(err)
+	}
 
 	if err := e.Run(":8080"); err != nil {
 		panic(err)

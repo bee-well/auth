@@ -17,7 +17,7 @@ func newSqlConnector() SqlInterface {
 }
 
 func (postgreSql) Connect() (*sql.DB, error) {
-	db, err := sql.Open("postgres", config.SqlConnectionUrl())
+	db, err := sql.Open("postgres", config.GetString(config.SqlConnectionUrl))
 	if err != nil {
 		return nil, err
 	}

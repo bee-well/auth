@@ -1,8 +1,6 @@
 package mq
 
 import (
-	"fmt"
-
 	"github.com/bee-well/auth/config"
 	"github.com/streadway/amqp"
 )
@@ -23,7 +21,7 @@ type rabbitMq struct {
 }
 
 func (r *rabbitMq) Publish(queue string, content []byte) error {
-	conn, err := amqp.Dial(config.MqConnectionUrl())
+	conn, err := amqp.Dial(config.GetString(config.MqConnectionUrl))
 	if err != nil {
 		return err
 	}
@@ -58,23 +56,20 @@ func (r *rabbitMq) AttachHandler(queue string, handler MqHandlerFunc) error {
 }
 
 func (r *rabbitMq) attachHandler(queue string, handler MqHandlerFunc) error {
-	conn, err := amqp.Dial(config.MqConnectionUrl())
+	conn, err := amqp.Dial(config.GetString(config.MqConnectionUrl))
 	if err != nil {
-		fmt.Println(err.Error(), "connect")
 		return err
 	}
 	defer conn.Close()
 
 	ch, err := conn.Channel()
 	if err != nil {
-		fmt.Println(err.Error(), "create ch")
 		return err
 	}
 	defer ch.Close()
 
 	q, err := r.declareQueue(ch, queue)
 	if err != nil {
-		fmt.Println(err.Error(), "declare queue")
 		return err
 	}
 
