@@ -8,4 +8,5 @@ import (
 func mapRoutes(e *gin.Engine) {
 	e.GET("/marco", controllers.Marco)
 	e.POST("/sign-in", controllers.SignIn)
+	e.POST("/sign-up", controllers.SignUp)
 }

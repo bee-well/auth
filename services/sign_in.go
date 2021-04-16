@@ -1,14 +1,24 @@
 package services
 
-import "github.com/bee-well/auth/mq"
+import (
+	"errors"
+
+	"github.com/bee-well/auth/domain"
+	"golang.org/x/crypto/bcrypt"
+)
 
 // SignIn ensures that the user credentials are correct and that
 // an authorization token is generated and sent back to the caller
 func SignIn(email, password string) (string, error) {
-	if email == "admin" && password == "password" {
-		m := mq.NewMq()
-		m.Publish("users", []byte("user authenticated"))
-		return "TOKEN", nil
+	dao := domain.NewUserDao()
+	user, err := dao.FindByEmail(email)
+	if err != nil {
+		return "", errors.New("Invalid username or password")
 	}
-	return "", nil
+
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+		return "", errors.New("Invalid username or password")
+	}
+
+	return "TOKEN", nil
 }

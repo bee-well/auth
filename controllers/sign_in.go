@@ -25,7 +25,7 @@ func SignIn(c *gin.Context) {
 	}
 
 	if token, err := services.SignIn(payload.Email, payload.Password); err != nil {
-		c.JSON(http.StatusForbidden, "Wrong email or password.")
+		c.JSON(http.StatusForbidden, err.Error())
 	} else {
 		c.JSON(http.StatusOK, token)
 	}
