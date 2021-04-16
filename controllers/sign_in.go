@@ -15,17 +15,17 @@ type signInPayload struct {
 func SignIn(c *gin.Context) {
 	var payload signInPayload
 	if err := c.ShouldBindJSON(&payload); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, "no")
+		c.JSON(http.StatusUnprocessableEntity, "Could not process the request body.")
 		return
 	}
 
 	if payload.Email == "" || payload.Password == "" {
-		c.JSON(http.StatusUnprocessableEntity, "no")
+		c.JSON(http.StatusUnprocessableEntity, "Could not process the request body.")
 		return
 	}
 
 	if token, err := services.SignIn(payload.Email, payload.Password); err != nil {
-		c.JSON(http.StatusForbidden, "nono, not u")
+		c.JSON(http.StatusForbidden, "Wrong email or password.")
 	} else {
 		c.JSON(http.StatusOK, token)
 	}
