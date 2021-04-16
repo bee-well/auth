@@ -3,6 +3,8 @@ package services
 import (
 	"errors"
 
+	"github.com/bee-well/auth/mq"
+
 	"github.com/bee-well/auth/domain"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -22,6 +24,12 @@ func SignIn(email, password string) (string, error) {
 
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
 		return "", errors.New("Invalid username or password")
+	}
+
+	m := mq.NewMq()
+
+	if err := m.Publish("users", []byte("user was authed.")); err != nil {
+		return "", err
 	}
 
 	return "TOKEN", nil

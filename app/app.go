@@ -7,15 +7,15 @@ import (
 )
 
 func Start() {
+	if err := config.ReadInConfig(); err != nil {
+		panic(err)
+	}
+
 	e := gin.Default()
 	mapRoutes(e)
 
 	m := mq.NewMq()
 	mapMqHandlers(m)
-
-	if err := config.ReadInConfig(); err != nil {
-		panic(err)
-	}
 
 	if err := e.Run(":8080"); err != nil {
 		panic(err)

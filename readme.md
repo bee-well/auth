@@ -6,5 +6,5 @@ The server is written in Golang and utilises the `Gin` framework for handling HT
 Make sure to run a development PostgreSQL through docker using the following commands:
 ```
 docker run -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:alpine
-docker run -d -h bee-well bee-well -p 5672:5672 rabbitmq:alpine
+docker run -d -h bee-well -p 5672:5672 rabbitmq:alpine
 ```
