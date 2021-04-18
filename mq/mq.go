@@ -12,7 +12,12 @@ type Mq interface {
 	AttachHandler(string, MqHandlerFunc) error
 }
 
+var mock Mq
+
 func NewMq() Mq {
+	if mock != nil {
+		return mock
+	}
 	return &rabbitMq{}
 }
 

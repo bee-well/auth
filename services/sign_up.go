@@ -2,7 +2,6 @@ package services
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/bee-well/auth/domain"
 	"golang.org/x/crypto/bcrypt"
@@ -33,7 +32,6 @@ func SignUp(
 	user.Password = string(hash)
 
 	if err := dao.Insert(&user); err != nil {
-		fmt.Println(err.Error())
 		return errors.New("A user with that email is already registered.")
 	}
 

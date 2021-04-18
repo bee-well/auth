@@ -11,7 +11,13 @@ type UserDao interface {
 	FindByEmail(string) (User, error)
 }
 
+var mock UserDao
+
 func NewUserDao() (UserDao, error) {
+	if mock != nil {
+		return mock, nil
+	}
+
 	db, err := newSqlConnector().Connect()
 	if err != nil {
 		return nil, err
