@@ -1,7 +1,8 @@
 package config
 
 import (
-	"strings"
+	"fmt"
+	"os"
 
 	"github.com/spf13/viper"
 )
@@ -13,23 +14,20 @@ import (
 	the future.
 */
 const (
-	configFileName      = "config"
-	configPathDelimiter = ":"
-	configPaths         = "." // Each path is seperated by a `configPathDelimiter`
-
 	productionEnvironmentConfigValue = "prod"
 )
 
-func ReadInConfig() error {
+func ReadInConfig(configFileName string) error {
 	viper.SetConfigName(configFileName)
-	for _, configPath := range strings.Split(configPaths, configPathDelimiter) {
-		viper.AddConfigPath(configPath)
-	}
 	return viper.ReadInConfig()
 }
 
 func GetString(key string) string {
-	return viper.GetString(key)
+	if os.Getenv(key) == "" {
+		return viper.GetString(key)
+	}
+	fmt.Println(os.Getenv(key))
+	return os.Getenv(key)
 }
 
 func GetInt(key string) int {

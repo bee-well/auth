@@ -1,10 +1,11 @@
-# Auth Service
-This repository serves as a PoC for how the authentication may look for the Bee Well application.
+# Auth Tjänst
+Detta repository är en prototyp av autensieringstjänsten för Bee Well. Detta program kommer att sköta användare och genereringen av JWT-tokens. 
 ## Tech
-The server is written in Golang and utilises the `Gin` framework for handling HTTP requests. This application has been set up with a simple MQ pub/sub package that can be used for intercommunication between different services on Heroku. 
-## Run Dev
-Make sure to run a development PostgreSQL through docker using the following commands:
-```
-docker run -e POSTGRES_PASSWORD=password -p 5432:5432 postgres:alpine
-docker run -d -h bee-well -p 5672:5672 rabbitmq:alpine
-```
+Servern är skriven i Go och använder sig utav ramverket `Gin` för att sköta HTTP förfrågningar. Användare sparas i en PostgreSQL-databas med följande fält: 
+* ID
+* Förnamn
+* Efternamn
+* Lösenord
+* Email
+## Köra för utveckling
+För att starta programmet kan du använda Docker Compose (se `docker-compose.yaml`). Se till att du har detta installerat (på MacOS kommer detta installerat med Docker). Sedan är det bara att navigera sig till projektmappen i terminalen och köra `docker-compose up` för att starta RabbitMQ, PostgreSQL och Auth-tjänsten.
