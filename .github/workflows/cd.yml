@@ -1,0 +1,37 @@
+name: CD
+ 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create Dockerfile
+        run: |
+          touch Dockerfile
+          cat >>./Dockerfile <<END
+            FROM golang:alpine
+            WORKDIR app
+            ENV APP_ENVIRONMENT=prod
+            ENV SQL_CONNECTION_URL=$SQL_CONN
+            ENV MQ_CONNECTION_URL=$MQ_CONN
+            COPY . .
+            RUN go build
+            CMD ["./auth"]
+          END
+        env:
+          SQL_CONN: ${{ secrets.SQL_CONNECTION__URL }}
+          MQ_CONN: ${{ secrets.MQ_CONNECTION__URL }}
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "bw-auth"
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          usedocker: true
