@@ -7,5 +7,6 @@ require (
 	github.com/lib/pq v1.10.0
 	github.com/spf13/viper v1.7.1
 	github.com/streadway/amqp v1.0.0
+	github.com/stretchr/testify v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc
 )
