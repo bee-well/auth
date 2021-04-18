@@ -1,6 +1,8 @@
 package app
 
 import (
+	"fmt"
+
 	"github.com/bee-well/auth/config"
 	"github.com/bee-well/auth/mq"
 	"github.com/gin-gonic/gin"
@@ -13,7 +15,7 @@ func Start() {
 	m := mq.NewMq()
 	mapMqHandlers(m)
 
-	port := config.GetString("PORT")
+	port := fmt.Sprintf(":%s", config.GetString("PORT"))
 	if err := e.Run(port); err != nil {
 		panic(err)
 	}
