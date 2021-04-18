@@ -27,8 +27,8 @@ jobs:
             CMD ["./auth"]
           END
         env:
-          SQL_CONN: ${{ secrets.SQL_CONNECTION__URL }}
-          MQ_CONN: ${{ secrets.MQ_CONNECTION__URL }}
+          SQL_CONN: ${{ secrets.SQL_CONNECTION_URL }}
+          MQ_CONN: ${{ secrets.MQ_CONNECTION_URL }}
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
