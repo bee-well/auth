@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/bee-well/auth/domain"
+	"github.com/bee-well/auth/mq"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -33,6 +34,11 @@ func SignUp(
 
 	if err := dao.Insert(&user); err != nil {
 		return errors.New("A user with that email is already registered.")
+	}
+
+	if err := mq.NewMq().Publish("users", mq.NewUserCreatedEvent(user).JsonBytes()); err != nil {
+		// TODO: send email to support
+		return errors.New("Could not complete your request, please contact customer support.")
 	}
 
 	return nil

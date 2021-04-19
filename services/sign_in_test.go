@@ -30,7 +30,6 @@ func TestSignInBadPassword(t *testing.T) {
 
 	token, err := SignIn("test@test.com", "test")
 
-	assert.Equal(t, 0, mqMock.PublishCalls, "no publish mq calls should have been made")
 	assert.Equal(t, 1, daoMock.FindByEmailCalls, "expected exactly one FindByEmail call")
 	assert.NotNil(t, err, "expected error to be returned")
 	assert.Equal(t, "", token, "expected empty token to be returned")
@@ -58,7 +57,6 @@ func TestSignInOK(t *testing.T) {
 
 	token, err := SignIn("test@test.com", "password")
 
-	assert.Equal(t, 1, mqMock.PublishCalls, "must publish event on sign in")
 	assert.Equal(t, 1, daoMock.FindByEmailCalls, "expected exactly one FindByEmail call")
 	assert.Nil(t, err, "no error should be returned")
 	assert.NotEqual(t, "", token, "expected token")
