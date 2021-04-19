@@ -8,7 +8,7 @@ import (
 func CreateJwt(t *domain.Token, secret string) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["id"] = t.ID
-	claims["issued"] = t.Issued.Format("2006-01-02")
+	claims["issued"] = t.Issued.Format("2006-01-02 03:04:05")
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return at.SignedString([]byte(secret))
 }

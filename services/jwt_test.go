@@ -17,5 +17,9 @@ func TestCreateJwt(t *testing.T) {
 
 	jwt, err := CreateJwt(&token, "secret")
 	assert.Nil(t, err)
-	assert.Equal(t, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNCwiaXNzdWVkIjoiMjAwNi0wMS0wMiJ9.k2ny-xP3dG3eQX_rFOufmdte3piSVYrOebKpzcP8IzQ", jwt)
+	assert.Equal(
+		t,
+		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNCwiaXNzdWVkIjoiMjAwNi0wMS0wMiAxMjowMDowMCJ9.AzAMVCOImcGfXUgd2oJ4uFpCP8SSF67xve8lP1ZPeRw",
+		jwt,
+	)
 }
