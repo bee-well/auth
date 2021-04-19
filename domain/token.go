@@ -3,6 +3,6 @@ package domain
 import "time"
 
 type Token struct {
-	ID     string
+	ID     int64
 	Issued time.Time
 }
