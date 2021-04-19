@@ -2,8 +2,7 @@ package services
 
 import (
 	"errors"
-
-	"github.com/bee-well/auth/mq"
+	"time"
 
 	"github.com/bee-well/auth/domain"
 	"golang.org/x/crypto/bcrypt"
@@ -26,11 +25,10 @@ func SignIn(email, password string) (string, error) {
 		return "", errors.New("Invalid username or password")
 	}
 
-	m := mq.NewMq()
-
-	if err := m.Publish("users", []byte("user was authed.")); err != nil {
-		return "", err
+	t := domain.Token{
+		ID:     user.ID,
+		Issued: time.Now(),
 	}
 
-	return "TOKEN", nil
+	return CreateJwt(&t, "some_secret")
 }
