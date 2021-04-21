@@ -4,6 +4,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/bee-well/auth/config"
 	"github.com/bee-well/auth/domain"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -30,5 +31,5 @@ func SignIn(email, password string) (string, error) {
 		Issued: time.Now(),
 	}
 
-	return CreateJwt(&t, "some_secret")
+	return CreateJwt(&t, config.GetString(config.JwtKey))
 }

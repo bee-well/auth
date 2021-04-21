@@ -9,7 +9,9 @@ services:
         environment:
             APP_ENVIRONMENT: prod
             SQL_CONNECTION_URL: postgres://postgres:password@sql:5432/?sslmode=disable
-            MQ_CONNECTION_URL: amqp://mq:5672 
+            MQ_CONNECTION_URL: amqp://mq:5672
+            JWT_KEY: secret_key 
+            PORT: 8080
     sql: 
         image: "postgres:alpine"
         environment:
