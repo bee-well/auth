@@ -5,7 +5,7 @@ type UserDaoMock struct {
 	SaveCalls        int
 	InsertMock       func(*User) error
 	InsertCalls      int
-	FindByIDMock     func(string) (User, error)
+	FindByIDMock     func(int64) (User, error)
 	FindByIDCalls    int
 	FindByEmailMock  func(string) (User, error)
 	FindByEmailCalls int
@@ -25,7 +25,7 @@ func (mock *UserDaoMock) Insert(u *User) error {
 	return mock.InsertMock(u)
 }
 
-func (mock *UserDaoMock) FindByID(id string) (User, error) {
+func (mock *UserDaoMock) FindByID(id int64) (User, error) {
 	mock.FindByIDCalls++
 	return mock.FindByIDMock(id)
 }

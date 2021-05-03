@@ -7,7 +7,7 @@ import (
 type UserDao interface {
 	Save(*User) error
 	Insert(*User) error
-	FindByID(string) (User, error)
+	FindByID(int64) (User, error)
 	FindByEmail(string) (User, error)
 }
 
@@ -75,7 +75,7 @@ func (userDao) Insert(u *User) error {
 	return nil
 }
 
-func (userDao) FindByID(id string) (User, error) {
+func (userDao) FindByID(id int64) (User, error) {
 	db, err := newSqlConnector().Connect()
 	if err != nil {
 		return User{}, err
