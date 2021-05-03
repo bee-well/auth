@@ -19,7 +19,7 @@ func TestCreateJwt(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(
 		t,
-		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNCwiaXNzdWVkIjoiMjAwNi0wMS0wMiAxMjowMDowMCJ9.AzAMVCOImcGfXUgd2oJ4uFpCP8SSF67xve8lP1ZPeRw",
+		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNCwiaXNzdWVkIjoiMjAwNi0wMS0wMlQwMDowMDowMFoifQ.P-9oUAsQOXK_fs2bLcqviddUHV8WtuEeTedbVViZS8o",
 		jwt,
 	)
 }
