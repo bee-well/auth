@@ -12,10 +12,10 @@ type countResponse struct {
 }
 
 func CountUsers(c *gin.Context) {
-	_, err := services.GetUserCount()
+	count, err := services.GetUserCount()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		c.JSON(http.StatusInternalServerError, "something went wrong, please try again later")
 		return
 	}
-	c.JSON(http.StatusOK, "ok")
+	c.JSON(http.StatusOK, countResponse{count})
 }
