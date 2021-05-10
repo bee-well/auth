@@ -22,4 +22,5 @@ func mapRoutes(e *gin.Engine) {
 	e.POST("/sign-in", controllers.SignIn)
 	e.POST("/sign-up", controllers.SignUp)
 	e.GET("/me", controllers.GetUser)
+	e.GET("/users", controllers.CountUsers)
 }

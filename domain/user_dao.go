@@ -9,6 +9,7 @@ type UserDao interface {
 	Insert(*User) error
 	FindByID(int64) (User, error)
 	FindByEmail(string) (User, error)
+	GetUserCount() (int, error)
 }
 
 var mock UserDao
@@ -73,6 +74,20 @@ func (userDao) Insert(u *User) error {
 	}
 
 	return nil
+}
+
+func (userDao) GetUserCount() (int, error) {
+	db, err := newSqlConnector().Connect()
+	if err != nil {
+		return -1, err
+	}
+	defer db.Close()
+
+	var userCount int
+	err = db.QueryRow("SELECT COUNT(id) FROM users").Scan(
+		&userCount,
+	)
+	return userCount, err
 }
 
 func (userDao) FindByID(id int64) (User, error) {
