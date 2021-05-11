@@ -7,6 +7,16 @@ Servern är skriven i Go och använder sig utav ramverket `Gin` för att sköta 
 ## Docker 🐳
 Detta program finns inte på Docker Hub utan för att köra det i Docker måste det laddas ned härifrån. För att enklast starta upp programmet med dependencies såsom PostgreSQL kan [docker-compose](https://docs.docker.com/compose/) användas. För att se programmets dependencies och miljövariablar, se [`docker-compose.yaml`](https://github.com/bee-well/auth/blob/main/docker-compose.yaml). Följande kommando bör användas för att starta upp programmet: `docker-compose up --build`, en annan variant som använder sig av Docker CLI:t är `docker compose up --build`, men jag rekommenderar att den förstnämnda används. 
 
+## JWT
+De JWT tokens som skapas innehåller följande data efter att de avkodas:
+```
+{
+  "id": Integer,
+  "issued": String
+}
+```
+Notera att `issued` inte används för tillfället utan istället fungerar som en framtidsförsäkring för att kunna sätta en tidsgräns på hur länge en token är giltig. Gruppen är medveten om att JWT tokens enkelt kan avkodas och sparar därför inte någon känslig data där i.
+
 ## Endpoints 👇
 Nedan finns en förklaring av alla endpoints som denna tjänst innehåller. 
 ### GET `/users` 🧮
