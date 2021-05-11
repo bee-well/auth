@@ -20,7 +20,7 @@ func SignIn(c *gin.Context) {
 	}
 
 	if payload.Email == "" || payload.Password == "" {
-		c.JSON(http.StatusUnprocessableEntity, "Could not process the request body.")
+		c.JSON(http.StatusBadRequest, "Could not process the request body.")
 		return
 	}
 
