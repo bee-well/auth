@@ -1,5 +1,5 @@
 # Auth Tjänst 🔐
-Detta repository är en prototyp av autensieringstjänsten för Bee Well. Detta program sköter användare och skapandet av JWT tokens.  
+Detta repository är autensieringstjänsten för Bee Well. Detta program sköter användare och skapandet av JWT tokens.  
 
 ## Tech 💻
 Servern är skriven i Go och använder sig utav ramverket `Gin` för att sköta HTTP förfrågningar. Användare sparas i en PostgreSQL-databas. Alla lösenord som sparas i PostgreSQL är hashade med BCrypt. Programmet körs i en Docker-container på Heroku Cloud och deployas ✨ automagiskt ✨ med CD. I detta repot, precis som alla andra under [bee-well](https://github.com/bee-well), så sköts utveckling på en separat branch med pull requests till main efter att en feature är klar. När en pull request skapas så körs alla tester ✨ automagiskt ✨ här på GitHub (CI). Både CI och CD är implementerat med hjälp av GitHub Actions ([se .github/workflows](https://github.com/bee-well/auth/tree/main/.github/workflows)). Efter att en pull request har förts till main branchen så deployas applikationen i Heroku. 
